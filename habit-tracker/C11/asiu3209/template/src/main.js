@@ -35,9 +35,7 @@ function displayHabits() {
       <h3>${habit.name}</h3>
       <div>Frequency: ${habit.frequency}</div>
       <div class="habit-progress">
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: ${habit.progress}%"></div>
-        </div>
+          <progress value="${habit.progress}" max="100">${habit.progress}%</progress>
         <div class="progress-text">${habit.progress}% Complete</div>
       </div>
         <button class="mark-complete">Mark Complete</button>
