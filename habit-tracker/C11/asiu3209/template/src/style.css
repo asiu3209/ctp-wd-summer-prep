@@ -2,6 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  height: 40px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -35,12 +36,11 @@ body {
 
 .habits-list {
   display: flex;
-  gap: 20px;
-  flex-direction: row;
   flex-wrap: wrap;
-  padding: 20px;
+  flex-direction: row;
+  gap: 20px;
   justify-content: center;
-  align-items: center;
+  padding: 20px;
 }
 .habit-card {
   background: white;
@@ -67,12 +67,14 @@ progress {
 }
 
 .progress-text {
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
+  margin: 4px;
 }
 
 #habit-form {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   gap: 12px;
   padding: 20px;
@@ -81,8 +83,6 @@ progress {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   width: 320px;
-  margin-top: 20px;
-  font-family: sans-serif;
 }
 
 #habit-form input[type="text"],

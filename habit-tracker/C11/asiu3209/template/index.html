@@ -10,20 +10,24 @@
   <body>
     <nav class="nav">
       <a class="nav-link" href="/">Home</a>
-      <a class="nav-link" href="src/habits.html">Habits</a>
       <a class="nav-link" href="src/statistics.html">Statistics</a>
     </nav>
     <form id="habit-form">
+      <label>Habit Name</label>
       <input type="text" name="habit-name" placeholder="Habit Name" required />
+      <!--Change Frequency to streak target (in days)-->
+      <label>Habit Frequency</label>
       <input
         type="number"
+        min="1"
+        max="365"
         name="habit-frequency"
         placeholder="Frequency (days)"
         required
       />
       <button type="submit">Add Habit</button>
     </form>
-    <article class="habits-list" id="habits-list"></article>
+    <ul class="habits-list" id="habits-list"></ul>
     <script type="module" src="src/main.js" defer></script>
   </body>
 </html>
