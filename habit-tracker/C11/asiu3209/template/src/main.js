@@ -67,7 +67,7 @@ document.getElementById("habit-form").addEventListener("submit", function (e) {
   displayHabits();
   e.target.reset();
 });
-//Deletes Habit Cards
+//Deletes Habit Cards and updates streaks
 document.getElementById("habits-list").addEventListener("click", function (e) {
   if (e.target.classList.contains("delete-habit")) {
     const habitCard = e.target.closest(".habit-card");
@@ -79,6 +79,7 @@ document.getElementById("habits-list").addEventListener("click", function (e) {
     for (let i = 0; i < allHabits.length; i++) {
       if (allHabits[i].id === parseInt(habitCard.id)) {
         allHabits[i].progress++;
+        saveHabits();
         displayHabits();
         return;
       }
@@ -88,6 +89,7 @@ document.getElementById("habits-list").addEventListener("click", function (e) {
     for (let i = 0; i < allHabits.length; i++) {
       if (allHabits[i].id === parseInt(habitCard.id)) {
         allHabits[i].progress = 0;
+        saveHabits();
         displayHabits();
         return;
       }
