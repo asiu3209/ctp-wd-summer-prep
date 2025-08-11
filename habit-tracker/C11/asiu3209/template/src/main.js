@@ -1,6 +1,6 @@
 let habitID = 3; // next unique ID for habit
 
-const allHabits = [
+let allHabits = [
   {
     id: 0,
     name: "Exercise",
@@ -63,6 +63,7 @@ document.getElementById("habit-form").addEventListener("submit", function (e) {
   };
   allHabits.push(habit);
   console.log("New habit created:", habit);
+  saveHabits();
   displayHabits();
   e.target.reset();
 });
@@ -99,10 +100,31 @@ function deleteCard(id) {
     if (allHabits[i].id === id) {
       allHabits.splice(i, 1);
       console.log("Habit deleted:", id);
+      saveHabits();
       displayHabits();
       return;
     }
   }
 }
 
-document.addEventListener("DOMContentLoaded", displayHabits());
+function saveHabits() {
+  localStorage.setItem("habits", JSON.stringify(allHabits));
+}
+
+function loadHabits() {
+  const storedHabits = localStorage.getItem("habits");
+  if (storedHabits) {
+    allHabits = JSON.parse(storedHabits);
+    habitID = allHabits.length
+      ? Math.max(...allHabits.map((h) => h.id)) + 1
+      : 0;
+  } else {
+    allHabits = [];
+    habitID = 0;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadHabits();
+  displayHabits();
+});
