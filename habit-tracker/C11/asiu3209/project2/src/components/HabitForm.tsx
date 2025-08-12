@@ -1,8 +1,12 @@
 function HabitForm() {
+  function submitForm(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+  }
   return (
-    <form id="habit-form">
+    <form id="habit-form" onSubmit={submitForm}>
       <label>Habit Name:</label>
-      <input type="text" name="habitName" placeholder="Habit Name" required />
+      <input type="text" placeholder="Habit Name" name="habitName" required />
       <label>Frequency:</label>
       <input
         type="number"
