@@ -1,10 +1,10 @@
 import NavBar from "../components/NavBar";
 import HabitForm from "../components/HabitForm";
 import HabitCard from "../components/HabitCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Habit } from "../components/HabitCard";
 function HomePage() {
-  const [habits, setHabits] = useState<Habit[]>([
+  let [habits, setHabits] = useState<Habit[]>([
     {
       id: 0,
       name: "Exercise",
@@ -43,6 +43,15 @@ function HomePage() {
   }
   function deleteHabit(id: number) {
     setHabits((prevHabits) => prevHabits.filter((habit) => habit.id !== id));
+  }
+  function saveHabits() {
+    localStorage.setItem("habits", JSON.stringify(habits));
+  }
+  function loadHabits() {
+    const savedHabits = localStorage.getItem("habits");
+    if (savedHabits) {
+      setHabits(JSON.parse(savedHabits));
+    }
   }
   return (
     <>
