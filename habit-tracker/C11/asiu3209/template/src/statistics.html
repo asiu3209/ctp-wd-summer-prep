@@ -6,11 +6,20 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body id="statistics-page">
     <nav class="nav">
       <a class="nav-link" href="/">Home</a>
-      <a class="nav-link" href="habits.html">Habits</a>
       <a class="nav-link" href="statistics.html">Statistics</a>
     </nav>
+    <h1>Completed Habits</h1>
+    <ul class="completed-habits-list" id="completed-habits-list">
+      <div class="completed-habit-header">
+        <span class="completed-habit-item-span">Habit Name</span>
+        <span class="completed-habit-item-span">Date Added</span>
+        <span class="completed-habit-item-span">Date Completed</span>
+        <span class="completed-habit-item-span">Frequency</span>
+      </div>
+    </ul>
+    <script type="module" src="statistics.js" defer></script>
   </body>
 </html>

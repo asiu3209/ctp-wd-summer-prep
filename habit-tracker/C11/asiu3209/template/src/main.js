@@ -1,11 +1,12 @@
-let habitID = 3; // next unique ID for habit
+let habitID = 4; // next unique ID for habit
 
-let allHabits = [
+let habits = [
   {
     id: 0,
     name: "Exercise",
     frequency: 45,
     dateAdded: "2023-10-01",
+    dateCompleted: "",
     progress: 34,
   },
   {
@@ -13,6 +14,7 @@ let allHabits = [
     name: "Read",
     frequency: 20,
     dateAdded: "2023-10-02",
+    dateCompleted: "",
     progress: 11,
   },
   {
@@ -20,14 +22,26 @@ let allHabits = [
     name: "Meditate",
     frequency: 30,
     dateAdded: "2023-10-03",
+    dateCompleted: "",
     progress: 21,
   },
 ];
 
+let completedHabits = [
+  {
+    id: 3,
+    name: "Biking",
+    frequency: 23,
+    dateAdded: "2023-10-03",
+    dateCompleted: "2023-10-26",
+    progress: 23,
+  },
+];
 function displayHabits() {
   const habitList = document.getElementById("habits-list");
   habitList.innerHTML = ""; // Clear previous habits to prevent duplicates
-  for (const habit of allHabits) {
+  for (const habit of habits) {
+    // if (habit.progress < habit.frequency) {
     const newHabbit = document.createElement("div");
     newHabbit.className = "habit-card";
     newHabbit.id = habit.id;
@@ -48,59 +62,14 @@ function displayHabits() {
         <button class="delete-habit">Delete</button>
     `;
     habitList.appendChild(newHabbit);
+    // }
   }
 }
-//Handles creating new habits and adding them to the list
-document.getElementById("habit-form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const habit = {
-    id: habitID++,
-    name: formData.get("habit-name"),
-    frequency: Number(formData.get("habit-frequency")),
-    dateAdded: new Date().toISOString().split("T")[0], // Current date in YYYY-MM-DD format
-    progress: 0,
-  };
-  allHabits.push(habit);
-  console.log("New habit created:", habit);
-  saveHabits();
-  displayHabits();
-  e.target.reset();
-});
-//Deletes Habit Cards and updates streaks
-document.getElementById("habits-list").addEventListener("click", function (e) {
-  if (e.target.classList.contains("delete-habit")) {
-    const habitCard = e.target.closest(".habit-card");
-    const id = parseInt(habitCard.id);
-    deleteCard(id);
-  }
-  if (e.target.classList.contains("mark-complete")) {
-    const habitCard = e.target.closest(".habit-card");
-    for (let i = 0; i < allHabits.length; i++) {
-      if (allHabits[i].id === parseInt(habitCard.id)) {
-        allHabits[i].progress++;
-        saveHabits();
-        displayHabits();
-        return;
-      }
-    }
-  } else if (e.target.classList.contains("mark-incomplete")) {
-    const habitCard = e.target.closest(".habit-card");
-    for (let i = 0; i < allHabits.length; i++) {
-      if (allHabits[i].id === parseInt(habitCard.id)) {
-        allHabits[i].progress = 0;
-        saveHabits();
-        displayHabits();
-        return;
-      }
-    }
-  }
-});
 
 function deleteCard(id) {
-  for (let i = 0; i < allHabits.length; i++) {
-    if (allHabits[i].id === id) {
-      allHabits.splice(i, 1);
+  for (let i = 0; i < habits.length; i++) {
+    if (habits[i].id === id) {
+      habits.splice(i, 1);
       console.log("Habit deleted:", id);
       saveHabits();
       displayHabits();
@@ -110,23 +79,94 @@ function deleteCard(id) {
 }
 
 function saveHabits() {
-  localStorage.setItem("habits", JSON.stringify(allHabits));
+  localStorage.setItem("habits", JSON.stringify(habits));
+  localStorage.setItem("completedHabits", JSON.stringify(completedHabits));
 }
 
 function loadHabits() {
+  const storedCompletedHabits = localStorage.getItem("completedHabits");
+  if (storedCompletedHabits) {
+    completedHabits = JSON.parse(storedCompletedHabits);
+  } else {
+    completedHabits = [];
+  }
   const storedHabits = localStorage.getItem("habits");
   if (storedHabits) {
-    allHabits = JSON.parse(storedHabits);
-    habitID = allHabits.length
-      ? Math.max(...allHabits.map((h) => h.id)) + 1
-      : 0;
+    habits = JSON.parse(storedHabits);
+    habitID = habits.length ? Math.max(...habits.map((h) => h.id)) + 1 : 0;
   } else {
-    allHabits = [];
+    habits = [];
     habitID = 0;
   }
 }
 
+function checkCompletion() {
+  for (const habit of habits) {
+    if (habit.progress >= habit.frequency) {
+      console.log(`Congratulations! You've completed the habit: ${habit.name}`);
+      habit.dateCompleted = new Date().toISOString().split("T")[0];
+      completedHabits.push(habit);
+      deleteCard(habit.id);
+    }
+  }
+}
+
+function addEventListeners() {
+  //Handles creating new habits and adding them to the list
+  document
+    .getElementById("habit-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const habit = {
+        id: habitID++,
+        name: formData.get("habit-name"),
+        frequency: Number(formData.get("habit-frequency")),
+        dateAdded: new Date().toISOString().split("T")[0], // Current date in YYYY-MM-DD format
+        progress: 0,
+      };
+      habits.push(habit);
+      console.log("New habit created:", habit);
+      saveHabits();
+      displayHabits();
+      e.target.reset();
+    });
+  //Deletes Habit Cards and updates streaks
+  document
+    .getElementById("habits-list")
+    .addEventListener("click", function (e) {
+      if (e.target.classList.contains("delete-habit")) {
+        const habitCard = e.target.closest(".habit-card");
+        const id = parseInt(habitCard.id);
+        deleteCard(id);
+      }
+      if (e.target.classList.contains("mark-complete")) {
+        const habitCard = e.target.closest(".habit-card");
+        for (let i = 0; i < habits.length; i++) {
+          if (habits[i].id === parseInt(habitCard.id)) {
+            habits[i].progress++;
+          }
+        }
+        saveHabits();
+        displayHabits();
+        checkCompletion();
+      } else if (e.target.classList.contains("mark-incomplete")) {
+        const habitCard = e.target.closest(".habit-card");
+        for (let i = 0; i < habits.length; i++) {
+          if (habits[i].id === parseInt(habitCard.id)) {
+            habits[i].progress = 0;
+            saveHabits();
+            displayHabits();
+            return;
+          }
+        }
+      }
+    });
+}
 document.addEventListener("DOMContentLoaded", () => {
   loadHabits();
   displayHabits();
+  addEventListeners();
 });
+
+export { completedHabits };
