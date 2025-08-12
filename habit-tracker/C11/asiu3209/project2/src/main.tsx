@@ -1,14 +1,10 @@
-import { StrictMode } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import NavBar from "./components/NavBar";
-import HabitForm from "./components/HabitForm";
-import HabitList from "./components/HabitList";
+import App from "./App";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <NavBar />
-    <HabitForm />
-    <HabitList />
-  </StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );

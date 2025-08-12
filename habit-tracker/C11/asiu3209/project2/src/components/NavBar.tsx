@@ -1,13 +1,13 @@
-
+import { Link } from "react-router-dom";
 function NavBar() {
   return (
     <nav className="nav">
-      <a className="nav-link" href="/">
+      <Link className="nav-link" to="/">
         Home
-      </a>
-      <a className="nav-link" href="src/statistics.html">
+      </Link>
+      <Link className="nav-link" to="/statistics">
         Statistics
-      </a>
+      </Link>
     </nav>
   );
 }
