@@ -4,6 +4,7 @@ import HabitCard from "../components/HabitCard";
 import { useState, useEffect } from "react";
 import { Habit } from "../components/HabitCard";
 function HomePage() {
+  //Use state replaces habit array in js
   let [habits, setHabits] = useState<Habit[]>([
     {
       id: 0,
@@ -27,6 +28,11 @@ function HomePage() {
       progress: 21,
     },
   ]);
+  //Adds new Habit into useState
+  function addHabit(newHabit: Habit) {
+    setHabits((oldHabits) => [...oldHabits, newHabit]);
+  }
+  //prevHabits refer to state of habits currently
   function markComplete(id: number) {
     setHabits((prevHabits) =>
       prevHabits.map((habit) =>
@@ -41,9 +47,11 @@ function HomePage() {
       )
     );
   }
+  //Deletes Habit Card from useState
   function deleteHabit(id: number) {
     setHabits((prevHabits) => prevHabits.filter((habit) => habit.id !== id));
   }
+  //JSON local storage to save habits
   function saveHabits() {
     localStorage.setItem("habits", JSON.stringify(habits));
   }
@@ -60,6 +68,7 @@ function HomePage() {
       <div className="habits-list">
         {habits.map((habit) => (
           <HabitCard
+            //Parameters defined in HabitCard function
             key={habit.id}
             habit={habit}
             markComplete={markComplete}
