@@ -49,6 +49,8 @@ function HomePage() {
     }
     return [];
   }
+  //SaveHabits function is runned when tuple habits is changed
+  //1st parameter is what is being runned, 2nd parameter is when effect is runned.
   useEffect(() => {
     saveHabits();
   }, [habits]);

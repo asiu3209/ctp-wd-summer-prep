@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { FormHabit } from "./HabitCard";
 function HabitForm({ addHabit }: { addHabit: (habit: FormHabit) => void }) {
+  //useState used for storing form values
   const [formValue, setFormValue] = useState<FormHabit>({
+    //Initital starting state
     name: "",
     frequency: 1,
     progress: 0,
@@ -9,12 +11,14 @@ function HabitForm({ addHabit }: { addHabit: (habit: FormHabit) => void }) {
   function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     addHabit(formValue);
+    //resets form after submission
     setFormValue({
       name: "",
       frequency: 1,
       progress: 0,
     });
   }
+  //Onchange sets formValue as info is being inputed
   return (
     <form id="habit-form" onSubmit={submitForm}>
       <label>Habit Name:</label>
