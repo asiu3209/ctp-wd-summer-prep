@@ -1,4 +1,3 @@
-
 export interface Habit {
   id: number;
   name: string;
@@ -7,6 +6,11 @@ export interface Habit {
   dateCompleted?: Date;
   progress: number;
 }
+export type FormHabit = Pick<Habit, "name" | "frequency" | "progress">;
+export type StoredHabit = Exclude<Habit, "dateAdded" | "dateCompleted"> & {
+  dateAdded: string;
+  dateCompleted: string;
+};
 export interface HabitCardProps {
   habit: Habit;
   markComplete: (id: number) => void;

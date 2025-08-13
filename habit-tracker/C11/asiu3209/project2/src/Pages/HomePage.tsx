@@ -1,36 +1,20 @@
 import NavBar from "../components/NavBar";
 import HabitForm from "../components/HabitForm";
-import HabitCard from "../components/HabitCard";
+import HabitCard, { FormHabit, StoredHabit } from "../components/HabitCard";
 import { useState, useEffect } from "react";
 import { Habit } from "../components/HabitCard";
+let nextID = 0;
 function HomePage() {
   //Use state replaces habit array in js
-  let [habits, setHabits] = useState<Habit[]>([
-    {
-      id: 0,
-      name: "Exercise",
-      frequency: 45,
-      dateAdded: new Date("2023-10-01"),
-      progress: 34,
-    },
-    {
-      id: 1,
-      name: "Read",
-      frequency: 20,
-      dateAdded: new Date("2023-10-02"),
-      progress: 11,
-    },
-    {
-      id: 2,
-      name: "Meditate",
-      frequency: 30,
-      dateAdded: new Date("2023-10-03"),
-      progress: 21,
-    },
-  ]);
+  let [habits, setHabits] = useState<Habit[]>(loadHabits());
   //Adds new Habit into useState
-  function addHabit(newHabit: Habit) {
-    setHabits((oldHabits) => [...oldHabits, newHabit]);
+  function addHabit(newHabit: FormHabit) {
+    const processHabit: Habit = {
+      ...newHabit,
+      id: nextID++,
+      dateAdded: new Date(),
+    };
+    setHabits((oldHabits) => [...oldHabits, processHabit]);
   }
   //prevHabits refer to state of habits currently
   function markComplete(id: number) {
@@ -58,13 +42,20 @@ function HomePage() {
   function loadHabits() {
     const savedHabits = localStorage.getItem("habits");
     if (savedHabits) {
-      setHabits(JSON.parse(savedHabits));
+      return JSON.parse(savedHabits).map((storedHabit: StoredHabit) => ({
+        ...storedHabit,
+        dateAdded: new Date(storedHabit.dateAdded),
+      }));
     }
+    return [];
   }
+  useEffect(() => {
+    saveHabits();
+  }, [habits]);
   return (
     <>
       <NavBar />
-      <HabitForm />
+      <HabitForm addHabit={addHabit} />
       <div className="habits-list">
         {habits.map((habit) => (
           <HabitCard
