@@ -1,12 +1,16 @@
 import NavBar from "../components/NavBar";
 import HabitForm from "../components/HabitForm";
-import HabitCard, { FormHabit, StoredHabit } from "../components/HabitCard";
-import { useState, useEffect } from "react";
-import { Habit } from "../components/HabitCard";
+import HabitCard, { FormHabit, Habit } from "../components/HabitCard";
+import { useEffect } from "react";
 let nextID = 0;
-function HomePage() {
-  //Use state replaces habit array in js
-  let [habits, setHabits] = useState<Habit[]>(loadHabits());
+type habitStorageProp = {
+  habits: Habit[];
+  setHabits: React.Dispatch<React.SetStateAction<Habit[]>>;
+};
+function HomePage({ habits, setHabits }: habitStorageProp) {
+  // //Use state replaces habit array in js
+  // let [habits, setHabits] = useState<Habit[]>(loadHabits());
+
   //Adds new Habit into useState
   function addHabit(newHabit: FormHabit) {
     const processHabit: Habit = {
@@ -16,6 +20,7 @@ function HomePage() {
     };
     setHabits((oldHabits) => [...oldHabits, processHabit]);
   }
+
   //prevHabits refer to state of habits currently
   function markComplete(id: number) {
     setHabits((prevHabits) =>
@@ -24,6 +29,7 @@ function HomePage() {
       )
     );
   }
+
   function markIncomplete(id: number) {
     setHabits((prevHabits) =>
       prevHabits.map((habit) =>
@@ -39,36 +45,29 @@ function HomePage() {
   function saveHabits() {
     localStorage.setItem("habits", JSON.stringify(habits));
   }
-  function loadHabits() {
-    const savedHabits = localStorage.getItem("habits");
-    if (savedHabits) {
-      return JSON.parse(savedHabits).map((storedHabit: StoredHabit) => ({
-        ...storedHabit,
-        dateAdded: new Date(storedHabit.dateAdded),
-      }));
-    }
-    return [];
-  }
   //SaveHabits function is runned when tuple habits is changed
   //1st parameter is what is being runned, 2nd parameter is when effect is runned.
   useEffect(() => {
     saveHabits();
   }, [habits]);
+
   return (
     <>
       <NavBar />
       <HabitForm addHabit={addHabit} />
       <div className="habits-list">
-        {habits.map((habit) => (
-          <HabitCard
-            //Parameters defined in HabitCard function
-            key={habit.id}
-            habit={habit}
-            markComplete={markComplete}
-            markIncomplete={markIncomplete}
-            deleteHabit={deleteHabit}
-          />
-        ))}
+        {habits.map(
+          (habit) =>
+            habit.progress !== habit.frequency && (
+              <HabitCard
+                key={habit.id}
+                habit={habit}
+                markComplete={markComplete}
+                markIncomplete={markIncomplete}
+                deleteHabit={deleteHabit}
+              />
+            )
+        )}
       </div>
     </>
   );
