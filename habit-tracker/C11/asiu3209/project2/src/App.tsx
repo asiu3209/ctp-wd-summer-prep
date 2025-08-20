@@ -21,8 +21,14 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage habits={habits} setHabits={setHabits}/>} />
-        <Route path="/statistics" element={<StatisticsPage />} />
+        <Route
+          path="/"
+          element={<HomePage habits={habits} setHabits={setHabits} />}
+        />
+        <Route
+          path="/statistics"
+          element={<StatisticsPage habits={habits} />}
+        />
       </Routes>
     </>
   );

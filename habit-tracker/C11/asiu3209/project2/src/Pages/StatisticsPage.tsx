@@ -1,9 +1,18 @@
-function StatisticsPage() {
+import { Habit } from "../components/HabitCard";
+
+interface StatisticsPageProps {
+  habits: Habit[];
+}
+
+function StatisticsPage({ habits }: StatisticsPageProps) {
   return (
-    <div>
-      <h1>Statistics</h1>
-      <p>Here’s where your habit stats will go.</p>
-    </div>
+    <>
+      {habits.map((habit, idx) =>
+        habit.progress === habit.frequency ? (
+          <div key={idx}>This is a test</div>
+        ) : null
+      )}
+    </>
   );
 }
 
