@@ -24,9 +24,20 @@ function HomePage({ habits, setHabits }: habitStorageProp) {
   //prevHabits refer to state of habits currently
   function markComplete(id: number) {
     setHabits((prevHabits) =>
-      prevHabits.map((habit) =>
-        habit.id === id ? { ...habit, progress: habit.progress + 1 } : habit
-      )
+      prevHabits.map((habit) => {
+        if (habit.id === id) {
+          const newProgress = Math.min(habit.progress + 1, habit.frequency);
+          return {
+            ...habit,
+            progress: newProgress,
+            dateCompleted:
+              newProgress === habit.frequency
+                ? new Date()
+                : habit.dateCompleted,
+          };
+        }
+        return habit;
+      })
     );
   }
 
