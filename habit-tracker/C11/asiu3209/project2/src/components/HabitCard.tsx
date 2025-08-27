@@ -27,14 +27,17 @@ function HabitCard({
   return (
     <div className="habit-card">
       <h3>{habit.name}</h3>
-      <div>Frequency: {habit.frequency}</div>
+      <div>
+        Current Streak: {habit.progress} (
+        {((habit.progress / habit.frequency) * 100).toFixed(2)}%)
+      </div>
       <div className="habit-progress">
         <progress value={(habit.progress / habit.frequency) * 100} max={100}>
           {habit.progress}%
         </progress>
-        <div className="progress-text">
-          Current Streak: {habit.progress} (
-          {((habit.progress / habit.frequency) * 100).toFixed(2)}%)
+        <div className="frequency-text">
+          <span>Frequency: {habit.frequency}</span>
+          <span className="date">Date Added: {habit.dateAdded.toDateString()}</span>
         </div>
       </div>
       <button className="mark-complete" onClick={() => markComplete(habit.id)}>
