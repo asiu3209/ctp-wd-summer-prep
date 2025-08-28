@@ -2,12 +2,12 @@ import NavBar from "../components/NavBar";
 import HabitForm from "../components/HabitForm";
 import HabitCard, { FormHabit, Habit } from "../components/HabitCard";
 import { useEffect } from "react";
-let nextID = 0;
-type habitStorageProp = {
+
+type HabitStorageProps = {
   habits: Habit[];
   setHabits: React.Dispatch<React.SetStateAction<Habit[]>>;
 };
-function HomePage({ habits, setHabits }: habitStorageProp) {
+function HomePage({ habits, setHabits }: HabitStorageProps) {
   // //Use state replaces habit array in js
   // let [habits, setHabits] = useState<Habit[]>(loadHabits());
 
@@ -15,7 +15,7 @@ function HomePage({ habits, setHabits }: habitStorageProp) {
   function addHabit(newHabit: FormHabit) {
     const processHabit: Habit = {
       ...newHabit,
-      id: nextID++,
+      id: Date.now() + Math.random(), // Generate a unique id
       dateAdded: new Date(),
     };
     setHabits((oldHabits) => [...oldHabits, processHabit]);

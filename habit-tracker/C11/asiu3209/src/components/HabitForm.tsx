@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormHabit } from "./HabitCard";
+
 function HabitForm({ addHabit }: { addHabit: (habit: FormHabit) => void }) {
   //useState used for storing form values
   const [formValue, setFormValue] = useState<FormHabit>({
@@ -21,7 +22,7 @@ function HabitForm({ addHabit }: { addHabit: (habit: FormHabit) => void }) {
   //Onchange sets formValue as info is being inputed
   return (
     <form id="habit-form" onSubmit={submitForm}>
-      <label>Habit Name:</label>
+      <label htmlFor="name">Habit Name:</label>
       <input
         onChange={(e) => setFormValue({ ...formValue, name: e.target.value })}
         type="text"
@@ -30,7 +31,7 @@ function HabitForm({ addHabit }: { addHabit: (habit: FormHabit) => void }) {
         value={formValue.name}
         required
       />
-      <label>Frequency:</label>
+      <label htmlFor="frequency">Frequency:</label>
       <input
         onChange={(e) =>
           setFormValue({ ...formValue, frequency: e.target.valueAsNumber })

@@ -3,53 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="stylesheet" href="src/style.css" />
+    <link rel="stylesheet" href="/src/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Habit Tracker</title>
+    <title>Habit Tracker App</title>
   </head>
-  <body id="home-page">
-    <nav class="nav">
-      <a class="nav-link" href="/">Home</a>
-      <a class="nav-link" href="src/statistics.html">Statistics</a>
-    </nav>
-    <form id="habit-form">
-      <label>Habit Name</label>
-      <input type="text" name="habit-name" placeholder="Habit Name" required />
-      <label>Habit Frequency</label>
-      <input
-        type="number"
-        min="1"
-        max="365"
-        name="habit-frequency"
-        placeholder="Frequency (days)"
-        required
-      />
-      <button type="submit">Add Habit</button>
-    </form>
-    <ul class="habits-list" id="habits-list"></ul>
-    <script type="module" src="src/main.js" defer></script>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
-<!--
-Essential Features (Must Have)
-Add, edit, and delete habits
-Mark habits complete/incomplete for any date
-Calculate and display current streaks
-View completion history and statistics
-Data persistence across browser sessions
-Responsive design for mobile and desktop
-
-Basic HTML structure with forms for adding habits (extend the template)
-JavaScript functions for habit CRUD operations
-Streak calculation and progress tracking logic
-Local storage implementation for data persistence
-Enhanced CSS styling building on the template foundation
-Core Features to Implement:
-
-Add new habits with custom names and target frequencies  -Complete
-Mark habits as complete for specific dates
-Calculate current streaks and longest streaks
-View habit completion history
-Delete or edit existing habits
--->

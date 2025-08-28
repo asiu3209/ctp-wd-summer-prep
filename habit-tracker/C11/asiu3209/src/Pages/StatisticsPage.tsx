@@ -7,21 +7,37 @@ interface StatisticsPageProps {
 function StatisticsPage({ habits }: StatisticsPageProps) {
   return (
     <ul className="completed-habits-list">
-      <div className="completed-habit-header">
+      <li className="completed-habit-header">
         <span className="completed-habit-item-span">Habit Name</span>
         <span className="completed-habit-item-span">Date Added</span>
         <span className="completed-habit-item-span">Date Completed</span>
         <span className="completed-habit-item-span">Frequency</span>
-      </div>
+      </li>
       {habits.map((habit) =>
         habit.progress === habit.frequency ? (
-          <li className="completed-habit-item">
+          <li key={habit.id} className="completed-habit-item">
             <span className="completed-habit-item-span">{habit.name}</span>
             <span className="completed-habit-item-span">
-              {habit.dateAdded.toLocaleString()}
+              {habit.dateAdded.toLocaleString(undefined, {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              })}
             </span>
             <span className="completed-habit-item-span">
-              {habit.dateCompleted?.toLocaleString()}
+              {habit.dateCompleted
+                ? new Date(habit.dateCompleted).toLocaleString(undefined, {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  })
+                : ""}
             </span>
             <span className="completed-habit-item-span">{habit.frequency}</span>
           </li>

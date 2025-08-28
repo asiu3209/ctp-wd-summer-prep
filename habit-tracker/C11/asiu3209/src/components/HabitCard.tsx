@@ -18,6 +18,7 @@ export interface HabitCardProps {
   deleteHabit: (id: number) => void;
 }
 
+
 function HabitCard({
   habit,
   markComplete,
@@ -55,5 +56,6 @@ function HabitCard({
     </div>
   );
 }
+
 
 export default HabitCard;

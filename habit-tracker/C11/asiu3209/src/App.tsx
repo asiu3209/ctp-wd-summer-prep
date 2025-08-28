@@ -5,6 +5,8 @@ import StatisticsPage from "./Pages/StatisticsPage";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { Habit, StoredHabit } from "./components/HabitCard";
+
+
 function App() {
   let [habits, setHabits] = useState<Habit[]>(loadHabits());
   function loadHabits() {
@@ -33,4 +35,6 @@ function App() {
     </>
   );
 }
+
+
 export default App;
