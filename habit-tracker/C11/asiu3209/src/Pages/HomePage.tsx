@@ -2,14 +2,12 @@ import NavBar from "../components/NavBar";
 import HabitForm from "../components/HabitForm";
 import HabitCard, { FormHabit, Habit } from "../components/HabitCard";
 import { useEffect } from "react";
-
+//Prop used for HomePage function input
 type HabitStorageProps = {
   habits: Habit[];
   setHabits: React.Dispatch<React.SetStateAction<Habit[]>>;
 };
 function HomePage({ habits, setHabits }: HabitStorageProps) {
-  // //Use state replaces habit array in js
-  // let [habits, setHabits] = useState<Habit[]>(loadHabits());
 
   //Adds new Habit into useState
   function addHabit(newHabit: FormHabit) {

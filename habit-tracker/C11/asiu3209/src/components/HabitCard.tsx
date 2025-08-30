@@ -11,6 +11,7 @@ export type StoredHabit = Exclude<Habit, "dateAdded" | "dateCompleted"> & {
   dateAdded: string;
   dateCompleted: string;
 };
+//HabitCard function parameter prop
 export interface HabitCardProps {
   habit: Habit;
   markComplete: (id: number) => void;

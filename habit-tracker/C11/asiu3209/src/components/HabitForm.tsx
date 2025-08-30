@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FormHabit } from "./HabitCard";
-
+//takes in a function called addHabit. addHabit is defined as a function that takes a 
+// parameter called habit of type FormHabit
+//addHabit returns nothing(void)
 function HabitForm({ addHabit }: { addHabit: (habit: FormHabit) => void }) {
   //useState used for storing form values
   const [formValue, setFormValue] = useState<FormHabit>({
@@ -20,6 +22,7 @@ function HabitForm({ addHabit }: { addHabit: (habit: FormHabit) => void }) {
     });
   }
   //Onchange sets formValue as info is being inputed
+  //onChange updates formValue everytime something is typed
   return (
     <form id="habit-form" onSubmit={submitForm}>
       <label htmlFor="name">Habit Name:</label>
