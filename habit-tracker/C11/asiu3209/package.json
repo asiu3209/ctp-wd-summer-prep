@@ -1,7 +1,7 @@
 {
   "name": "template",
   "version": "0.0.0",
-  "homepage": "https://asiu3209.github.io/ctp-wd-summer-prep/",
+  "homepage": "https://asiu3209.github.io/ctp-wd-summer-prep/habit-tracker/C11/asiu3209/index.html",
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
